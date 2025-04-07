@@ -32,6 +32,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y mkisofs xorriso qemu-utils extlinux --no-install-recommends
 
+    - name: Override latest version (FOR TESTING ONLY)
+      if: ${{ true }}  # Always execute this step
+      run: |
+       echo "6.49.7 20210826" > latest6.txt # Replace with an OLDER, valid version
+
+    
     - name: Check latest version
       id: get_latest
       run: |
@@ -51,14 +57,7 @@ jobs:
         curl -s -o CHANGELOG https://upgrade.mikrotik.com/routeros/$LATEST_VERSION/CHANGELOG
         cat CHANGELOG
         echo "NEWEST=${NEWEST}" >> $GITHUB_ENV
-        echo "LATEST_VERSION=${LATEST_VERSION}" >> $GITHUB_ENV
-
-    - name: Override latest version (FOR TESTING ONLY)
-      if: ${{ true }}  # Always execute this step
-      run: |
-       echo "6.49.7 20210826" > latest6.txt # Replace with an OLDER, valid version
-
-    
+        echo "LATEST_VERSION=${LATEST_VERSION}" >> $GITHUB_ENV   
     
     - name: Cache mikrotik-${{ env.LATEST_VERSION }}.iso
       if: steps.get_latest.outputs.has_new_version == 'true'
