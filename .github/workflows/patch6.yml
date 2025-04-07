@@ -53,10 +53,10 @@ jobs:
         echo "NEWEST=${NEWEST}" >> $GITHUB_ENV
         echo "LATEST_VERSION=${LATEST_VERSION}" >> $GITHUB_ENV
 
-   - name: Override latest version (FOR TESTING ONLY)
-     if: ${{ true }}  # Always execute this step
-     run: |
-      echo "6.49.7 20210826" > latest6.txt # Replace with an OLDER, valid version
+    - name: Override latest version (FOR TESTING ONLY)
+      if: ${{ true }}  # Always execute this step
+      run: |
+       echo "6.49.7 20210826" > latest6.txt # Replace with an OLDER, valid version
 
     
     
